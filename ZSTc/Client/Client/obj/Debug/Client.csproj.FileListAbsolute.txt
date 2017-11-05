@@ -12,3 +12,17 @@ C:\Users\Patryk-student ELKI\Documents\ZST\ZSTc\Client\Client\obj\Debug\Client.c
 C:\Users\Patryk-student ELKI\Documents\ZST\ZSTc\Client\Client\obj\Debug\Client.csproj.CoreCompileInputs.cache
 C:\Users\Patryk-student ELKI\Documents\ZST\ZSTc\Client\Client\obj\Debug\Client.exe
 C:\Users\Patryk-student ELKI\Documents\ZST\ZSTc\Client\Client\obj\Debug\Client.pdb
+C:\Users\Patryk\Documents\zst4\ZSTc\Client\Client\bin\Debug\Client.exe.config
+C:\Users\Patryk\Documents\zst4\ZSTc\Client\Client\bin\Debug\Client.exe
+C:\Users\Patryk\Documents\zst4\ZSTc\Client\Client\bin\Debug\Client.pdb
+C:\Users\Patryk\Documents\zst4\ZSTc\Client\Client\obj\Debug\Client.csprojResolveAssemblyReference.cache
+C:\Users\Patryk\Documents\zst4\ZSTc\Client\Client\obj\Debug\Client.csproj.CoreCompileInputs.cache
+C:\Users\Patryk\Documents\zst4\ZSTc\Client\Client\obj\Debug\Client.exe
+C:\Users\Patryk\Documents\zst4\ZSTc\Client\Client\obj\Debug\Client.pdb
+C:\Users\Patryk-student ELKI\Documents\zst5\ZSTc\Client\Client\bin\Debug\Client.exe.config
+C:\Users\Patryk-student ELKI\Documents\zst5\ZSTc\Client\Client\bin\Debug\Client.exe
+C:\Users\Patryk-student ELKI\Documents\zst5\ZSTc\Client\Client\bin\Debug\Client.pdb
+C:\Users\Patryk-student ELKI\Documents\zst5\ZSTc\Client\Client\obj\Debug\Client.csprojResolveAssemblyReference.cache
+C:\Users\Patryk-student ELKI\Documents\zst5\ZSTc\Client\Client\obj\Debug\Client.csproj.CoreCompileInputs.cache
+C:\Users\Patryk-student ELKI\Documents\zst5\ZSTc\Client\Client\obj\Debug\Client.exe
+C:\Users\Patryk-student ELKI\Documents\zst5\ZSTc\Client\Client\obj\Debug\Client.pdb

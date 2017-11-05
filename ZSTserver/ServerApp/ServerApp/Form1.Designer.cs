@@ -44,6 +44,9 @@
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.button6 = new System.Windows.Forms.Button();
             this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -90,20 +93,19 @@
             this.backgroundWorker1.WorkerReportsProgress = true;
             this.backgroundWorker1.WorkerSupportsCancellation = true;
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(6, 249);
+            this.dataGridView1.Location = new System.Drawing.Point(6, 259);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(657, 222);
+            this.dataGridView1.Size = new System.Drawing.Size(657, 212);
             this.dataGridView1.TabIndex = 4;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(107, 8);
+            this.textBox1.Location = new System.Drawing.Point(185, 12);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(61, 20);
             this.textBox1.TabIndex = 5;
@@ -112,7 +114,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(104, 31);
+            this.label1.Location = new System.Drawing.Point(182, 35);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 13);
             this.label1.TabIndex = 8;
@@ -137,9 +139,9 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(267, 200);
+            this.button5.Location = new System.Drawing.Point(327, 194);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(54, 43);
+            this.button5.Size = new System.Drawing.Size(60, 27);
             this.button5.TabIndex = 12;
             this.button5.Text = "Filter it ";
             this.button5.UseVisualStyleBackColor = true;
@@ -149,9 +151,9 @@
             // 
             this.textBox3.Location = new System.Drawing.Point(393, 207);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(85, 20);
+            this.textBox3.Size = new System.Drawing.Size(113, 20);
             this.textBox3.TabIndex = 13;
-            this.textBox3.Text = "id";
+            this.textBox3.Text = "ID";
             // 
             // label3
             // 
@@ -164,17 +166,17 @@
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(518, 207);
+            this.textBox4.Location = new System.Drawing.Point(546, 207);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(35, 20);
+            this.textBox4.Size = new System.Drawing.Size(108, 20);
             this.textBox4.TabIndex = 15;
             this.textBox4.Text = "1";
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(327, 200);
+            this.button6.Location = new System.Drawing.Point(327, 226);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(60, 43);
+            this.button6.Size = new System.Drawing.Size(60, 27);
             this.button6.TabIndex = 17;
             this.button6.Text = "Delete it";
             this.button6.UseVisualStyleBackColor = true;
@@ -182,11 +184,38 @@
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(484, 207);
+            this.textBox5.Location = new System.Drawing.Point(512, 207);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(28, 20);
             this.textBox5.TabIndex = 18;
             this.textBox5.Text = ">=";
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(98, 12);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(81, 20);
+            this.textBox6.TabIndex = 19;
+            this.textBox6.Text = "localhost";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(95, 35);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(51, 13);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "IP adress";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(232, 202);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(48, 41);
+            this.button4.TabIndex = 21;
+            this.button4.Text = "Table list";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // Server
             // 
@@ -194,6 +223,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(666, 476);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.textBox6);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.textBox4);
@@ -236,6 +268,9 @@
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button button4;
     }
 }
 
