@@ -20,47 +20,35 @@ namespace Client
         private async void PostData()
         {
             string uri = "http://localhost:30000/";
-            var comment = "hello world";
-            var questionId = "ui";
-
-            var formContent = new FormUrlEncodedContent(new[]
-            {
-                new KeyValuePair<string, string>("comment", comment),
-                new KeyValuePair<string, string>("questionId", questionId)
-            });
+            string s = String.Empty;
+            string rs = String.Empty;
+            Console.WriteLine("Hello, type a new event. 'Esc' finishes this operation.");
+            while (true)
+            {                
+                s = Console.ReadLine();                
+                if (s.Equals("Esc"))
+                {
+                    break;
+                }
+                rs += s;
+                rs += "#";
+            }
+            DateTime dt = DateTime.Now;
+            string responseString = rs;//"Event time#" + dt.ToString("t") + rs;
+            byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
+            var byteCont = new ByteArrayContent(buffer);
 
             var myHttpClient = new HttpClient();
-            var response = await myHttpClient.PostAsync(uri, formContent);
+            var response = await myHttpClient.PostAsync(uri, byteCont);
             var stringContent = await response.Content.ReadAsStringAsync();
-        }
+            Console.WriteLine(stringContent);
+            myHttpClient.Dispose();
+            }
         public static void Main()
         {
             try
             {
-                //Console.WriteLine("Podaj IP");
-                //string a = Console.ReadLine();
-                //Console.WriteLine("Podaj port");
-                //string b = Console.ReadLine();
-                //int c = int.Parse(b);
-                //TcpClient client = new TcpClient(a, c);
-                TcpClient client = new TcpClient("10.1.1.15", 8080);
-                StreamReader reader = new StreamReader(client.GetStream());
-                StreamWriter writer = new StreamWriter(client.GetStream());
-                String s = String.Empty;
-                while (!s.Equals("Exit"))
-                {
-                    ClientHandler ch = new ClientHandler();
-                    Console.Write("Enter a string to send to the server: ");
-                    s = Console.ReadLine();
-                    Console.WriteLine();
-                    writer.WriteLine(s);
-                    writer.Flush();
-                    String server_string = reader.ReadLine();
-                    Console.WriteLine(server_string);
-                                    }
-                reader.Close();
-                writer.Close();
-                client.Close();
+                ClientHandler ch = new ClientHandler();                   
             }
             catch (Exception e)
             {

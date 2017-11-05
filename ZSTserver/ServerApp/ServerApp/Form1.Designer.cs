@@ -44,6 +44,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.button6 = new System.Windows.Forms.Button();
+            this.textBox5 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,7 +60,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(524, 0);
+            this.button2.Location = new System.Drawing.Point(564, 0);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(99, 48);
             this.button2.TabIndex = 1;
@@ -82,7 +83,7 @@
             this.Communications.FormattingEnabled = true;
             this.Communications.Location = new System.Drawing.Point(6, 54);
             this.Communications.Name = "Communications";
-            this.Communications.Size = new System.Drawing.Size(617, 134);
+            this.Communications.Size = new System.Drawing.Size(657, 134);
             this.Communications.TabIndex = 3;
             // 
             // backgroundWorker1
@@ -98,7 +99,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(6, 249);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(617, 95);
+            this.dataGridView1.Size = new System.Drawing.Size(657, 95);
             this.dataGridView1.TabIndex = 4;
             // 
             // textBox1
@@ -107,7 +108,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(61, 20);
             this.textBox1.TabIndex = 5;
-            this.textBox1.Text = "8080";
+            this.textBox1.Text = "30000";
             // 
             // label1
             // 
@@ -147,7 +148,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(276, 200);
+            this.button5.Location = new System.Drawing.Point(267, 200);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(54, 43);
             this.button5.TabIndex = 12;
@@ -161,39 +162,50 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(85, 20);
             this.textBox3.TabIndex = 13;
+            this.textBox3.Text = "id";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(393, 230);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(230, 13);
+            this.label3.Size = new System.Drawing.Size(270, 13);
             this.label3.TabIndex = 14;
-            this.label3.Text = "Name and value of variable for filtering/deleting";
+            this.label3.Text = "Name, relation and value of variable for filtering/deleting";
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(484, 207);
+            this.textBox4.Location = new System.Drawing.Point(518, 207);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(35, 20);
             this.textBox4.TabIndex = 15;
+            this.textBox4.Text = "1";
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(336, 200);
+            this.button6.Location = new System.Drawing.Point(327, 200);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(51, 43);
+            this.button6.Size = new System.Drawing.Size(60, 43);
             this.button6.TabIndex = 17;
-            this.button6.Text = "Delete ";
+            this.button6.Text = "Delete it";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(484, 207);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(28, 20);
+            this.textBox5.TabIndex = 18;
+            this.textBox5.Text = ">=";
             // 
             // Server
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(626, 546);
+            this.ClientSize = new System.Drawing.Size(666, 546);
+            this.Controls.Add(this.textBox5);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.label3);
@@ -236,6 +248,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.TextBox textBox5;
     }
 }
 
