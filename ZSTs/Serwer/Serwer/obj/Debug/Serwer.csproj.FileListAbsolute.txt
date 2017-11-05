@@ -1,0 +1,7 @@
+C:\Users\Patryk\Documents\ZSTs\Serwer\Serwer\bin\Debug\Serwer.exe.config
+C:\Users\Patryk\Documents\ZSTs\Serwer\Serwer\bin\Debug\Serwer.exe
+C:\Users\Patryk\Documents\ZSTs\Serwer\Serwer\bin\Debug\Serwer.pdb
+C:\Users\Patryk\Documents\ZSTs\Serwer\Serwer\obj\Debug\Serwer.csprojResolveAssemblyReference.cache
+C:\Users\Patryk\Documents\ZSTs\Serwer\Serwer\obj\Debug\Serwer.csproj.CoreCompileInputs.cache
+C:\Users\Patryk\Documents\ZSTs\Serwer\Serwer\obj\Debug\Serwer.exe
+C:\Users\Patryk\Documents\ZSTs\Serwer\Serwer\obj\Debug\Serwer.pdb

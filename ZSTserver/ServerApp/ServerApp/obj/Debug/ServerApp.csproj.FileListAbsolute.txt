@@ -1,0 +1,10 @@
+C:\Users\Patryk\Documents\ZSTserver\ServerApp\ServerApp\bin\Debug\ServerApp.exe.config
+C:\Users\Patryk\Documents\ZSTserver\ServerApp\ServerApp\bin\Debug\ServerApp.exe
+C:\Users\Patryk\Documents\ZSTserver\ServerApp\ServerApp\bin\Debug\ServerApp.pdb
+C:\Users\Patryk\Documents\ZSTserver\ServerApp\ServerApp\obj\Debug\ServerApp.csprojResolveAssemblyReference.cache
+C:\Users\Patryk\Documents\ZSTserver\ServerApp\ServerApp\obj\Debug\ServerApp.Form1.resources
+C:\Users\Patryk\Documents\ZSTserver\ServerApp\ServerApp\obj\Debug\ServerApp.Properties.Resources.resources
+C:\Users\Patryk\Documents\ZSTserver\ServerApp\ServerApp\obj\Debug\ServerApp.csproj.GenerateResource.Cache
+C:\Users\Patryk\Documents\ZSTserver\ServerApp\ServerApp\obj\Debug\ServerApp.csproj.CoreCompileInputs.cache
+C:\Users\Patryk\Documents\ZSTserver\ServerApp\ServerApp\obj\Debug\ServerApp.exe
+C:\Users\Patryk\Documents\ZSTserver\ServerApp\ServerApp\obj\Debug\ServerApp.pdb
