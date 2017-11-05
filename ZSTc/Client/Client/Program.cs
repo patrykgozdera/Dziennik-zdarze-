@@ -13,28 +13,21 @@ namespace Client
 {
     class ClientHandler
     {
+        string uri = "http://localhost:30000/";
         public ClientHandler()
         {
-            this.PostData();
+           
         }
-        private async void PostData()
+
+        private void ShowMenu()
         {
-            string uri = "http://localhost:30000/";
-            string s = String.Empty;
-            string rs = String.Empty;
-            Console.WriteLine("Hello, type a new event. 'Esc' finishes this operation.");
-            while (true)
-            {                
-                s = Console.ReadLine();                
-                if (s.Equals("Esc"))
-                {
-                    break;
-                }
-                rs += s;
-                rs += "#";
-            }
-            DateTime dt = DateTime.Now;
-            string responseString = rs;//"Event time#" + dt.ToString("t") + rs;
+            Console.WriteLine("Welcome to the application!" + Environment.NewLine);
+            Console.WriteLine("1: Define new type of event.");
+            Console.WriteLine("2: Send new events to the server.");
+            Console.WriteLine("3: Close the application.");
+        }
+        private async void PostData(string responseString)
+        {                 
             byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
             var byteCont = new ByteArrayContent(buffer);
 
@@ -46,15 +39,81 @@ namespace Client
             }
         public static void Main()
         {
+            string s = String.Empty;
+            string type = String.Empty;
+            string rs = String.Empty;
+            string resString;
+            ClientHandler ch = new ClientHandler();
+
             try
             {
-                ClientHandler ch = new ClientHandler();                   
+                ch.ShowMenu();
+                
+                bool isRunning = true;
+
+                while (isRunning)
+                {
+                    int caseswitch = Int32.Parse(Console.ReadLine());
+
+                    switch (caseswitch)
+                    {
+                        case 1:
+                            Console.WriteLine("Enter a type of new event.");
+                            type = Console.ReadLine();
+                            Console.WriteLine("First, name all columns with their types in a event's log ('Esc' finishes this operation):");
+                            while (true)
+                            {
+                                Console.WriteLine("Now enter name and type of column, separated by a space bar (for example: ID int)");
+                                s = Console.ReadLine();
+                                if (s.Equals("Esc"))
+                                {
+                                    break;
+                                }
+                                rs += s;
+                                rs += "#";
+                            }
+                            resString = "1" + type + "(&Event_time varchar(255)#" + rs;                            
+                            ch.PostData(resString);
+                            rs = String.Empty;
+                            ch.ShowMenu();
+                            break;
+
+                        case 2:
+                            DateTime dt = DateTime.Now;
+                            Console.WriteLine("First, choose type of event to fill.");
+                            type = Console.ReadLine();
+                            Console.WriteLine("Now create new event by giving values of each column in log table");
+                            while (true)
+                            {
+                                s = Console.ReadLine();
+                                if (s.Equals("Esc"))
+                                {
+                                    break;
+                                }
+                                rs += "'" + s + "'";
+                                rs += "#";
+                            }
+                            resString = "2" + type + " values (&" + "'" + dt.ToString("t") + "'" + "," + rs;                           
+                            ch.PostData(resString);
+                            rs = String.Empty;
+                            ch.ShowMenu();
+                            break;
+
+                        case 3:
+                            Environment.Exit(0);
+                            break;
+
+                        default:
+                            isRunning = false;
+                            break;
+                    }
+                }
+                                
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-            }
-            Console.ReadKey();
+            }            
                         
         } 
     }

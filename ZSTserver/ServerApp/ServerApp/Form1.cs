@@ -21,6 +21,7 @@ namespace ServerApp
     {
         SqlConnection conn = new SqlConnection("Server=.\\SQLExpress;Database=BazaZST;Integrated Security=true");
         string data;
+        string id;
 
         public Server()
         {
@@ -53,12 +54,13 @@ namespace ServerApp
             HttpListenerContext context = listener.GetContext();
             HttpListenerRequest request = context.Request;
             ShowRequestData(request);
+            id = request.UserHostAddress;
 
             // Obtain a response object.
             HttpListenerResponse response = context.Response;
 
             // Construct a response.
-            string responseString = response.StatusCode + " " + response.StatusDescription;
+            string responseString = response.StatusCode + " " + response.StatusDescription + Environment.NewLine + "New log created successfully!";
             byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
 
             // Get a response stream and write the response to it.
@@ -106,17 +108,105 @@ namespace ServerApp
             }));
             
             // Convert the data to a string and display it on the console.
-            string s = reader.ReadToEnd();
+            string string_from_client = reader.ReadToEnd();
             Communications.Invoke(new Action(delegate ()
             {
-                Communications.Items.Add(s);
+                Communications.Items.Add(string_from_client);
             }));
-            data = s;
+            data = string_from_client;
             Communications.Invoke(new Action(delegate ()
             {
             Communications.Items.Add("End of client data.");
             }));
-           
+            try
+            {
+                string s;
+                char[] chars = data.ToCharArray();
+
+                if(chars[0] == '1')
+                {
+                    s = "create table ";
+                    for (int j = 1; j < chars.Length - 1; j++)
+                    {
+                        char c = chars[j];
+                        if (c != '&')
+                        {
+                            s += c;
+                        }
+                        if (c == '&')
+                        {
+                            for (int i = j + 1; i < chars.Length - 1; i++)
+                            {
+                                c = chars[i];
+                                if (c == '#')
+                                {
+                                    s += ",";
+                                    j++;
+                                }
+
+                                else
+                                {
+                                    s += c;
+                                    j++;
+                                }
+                            }
+                        }
+                    }
+
+                    s += ");";
+                    MessageBox.Show(s);
+                    SqlCommand cmd = new SqlCommand(s, conn);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Table created successfully!");
+                    conn.Close();
+                }
+
+                else if (chars[0] == '2')
+                {
+                    s = "insert into ";
+                    for (int j = 1; j < chars.Length - 1; j++)
+                    {
+                        char c = chars[j];
+                        if (c != '&')
+                        {
+                            s += c;
+                        }
+                        if (c == '&')
+                        {
+                            for (int i = j + 1; i < chars.Length - 1; i++)
+                            {
+                                c = chars[i];
+                                if (c == '#')
+                                {
+                                    s += ",";
+                                    j++;
+                                }
+
+                                else
+                                {
+                                    s += c;
+                                    j++;
+                                }
+                            }
+                        }
+                    }
+
+                    s += ");";
+                    MessageBox.Show(s);
+                    SqlCommand cmd = new SqlCommand(s, conn);
+                    conn.Open();                    
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Table filled successfully!");
+                    conn.Close();
+                }
+                
+            }
+            catch (Exception b)
+            {
+                MessageBox.Show(b.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
             body.Close();
             reader.Close();
         }
@@ -178,6 +268,7 @@ namespace ServerApp
             MessageBox.Show("Server has stopped waiting for incoming connections!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
             conn.Close();
+            this.Dispose(true);
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)     //obsługa w innym wątku 
@@ -293,43 +384,7 @@ namespace ServerApp
                 MessageBox.Show("Type values to delete!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             conn.Close();
-        }
-
-        private void button4_Click(object sender, EventArgs e)          //wysyłanie danych do bazy 
-        {
-            try
-            {
-                string s;
-                char[] chars = data.ToCharArray();                               
-                s = "create table Tab4(";               
-                for(int i=0;  i < chars.Length - 1; i++)
-                {
-                    char c = chars[i];
-                    if(c == '#')
-                    {
-                        s += ",";                                                    
-                    }
-
-                    else
-                    {
-                        c = chars[i];
-                        s += c;
-                    }                        
-                }                    
-                
-                s += ");";
-                MessageBox.Show(s);
-                SqlCommand cmd = new SqlCommand(s, conn);
-                conn.Open();
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Table created successfully!");
-                conn.Close();
-            }
-            catch (Exception b)
-            {
-                MessageBox.Show(b.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
+        }        
 
     }
 }
