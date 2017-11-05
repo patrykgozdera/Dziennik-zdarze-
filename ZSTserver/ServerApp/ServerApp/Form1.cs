@@ -16,14 +16,110 @@ using System.Windows.Forms;
 
 namespace ServerApp
 {
-    public partial class Form1 : Form
+    public partial class Server : Form
     {
-        public Form1()
+        SqlConnection conn = new SqlConnection("Server=.\\SQLExpress;Database=BazaZST;Integrated Security=true");
+
+        public Server()
         {
             InitializeComponent();
         }
 
-        private void ProcessClientRequests(object argument)
+        public void HttpListenerr(string prefixes)
+        {
+            if (!HttpListener.IsSupported)
+            {
+                Console.WriteLine("Windows XP SP2 or Server 2003 is required to use the HttpListener class.");
+                return;
+            }
+            // URI prefixes are required            
+            if (prefixes == null || prefixes.Length == 0)
+                throw new ArgumentException("prefixes");
+
+            // Create a listener.
+            HttpListener listener = new HttpListener();
+
+            // Add the prefixes.
+            listener.Prefixes.Add(prefixes);
+            listener.Start();
+            Communications.Invoke(new Action(delegate ()
+            {
+                Communications.Items.Add("Listening...");
+            }));
+
+            // Note: The GetContext method blocks while waiting for a request. 
+            HttpListenerContext context = listener.GetContext();
+            HttpListenerRequest request = context.Request;
+            ShowRequestData(request);
+
+            // Obtain a response object.
+            HttpListenerResponse response = context.Response;
+
+            // Construct a response.
+            string responseString = "<HTML><BODY> Hello world!</BODY></HTML>";
+            byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
+
+            // Get a response stream and write the response to it.
+            response.ContentLength64 = buffer.Length;
+            System.IO.Stream output = response.OutputStream;
+            output.Write(buffer, 0, buffer.Length);
+            Communications.Invoke(new Action(delegate ()
+            {
+                Communications.Items.Add(response.StatusCode);
+                Communications.Items.Add(Environment.NewLine);
+            }));
+
+            // You must close the output stream.
+            output.Close();
+            listener.Stop();
+
+        }
+
+        public void ShowRequestData(HttpListenerRequest request)
+        {
+            if (!request.HasEntityBody)
+            {
+                Console.WriteLine("No client data was sent with the request.");
+                return;
+            }
+            System.IO.Stream body = request.InputStream;
+            System.Text.Encoding encoding = request.ContentEncoding;
+            System.IO.StreamReader reader = new System.IO.StreamReader(body, encoding);
+            if (request.ContentType != null)
+            {
+                Communications.Invoke(new Action(delegate ()
+                {
+                    Communications.Items.Add("Client data content type: " + request.ContentType);
+                }));
+                
+            }
+            Communications.Invoke(new Action(delegate ()
+            {
+                Communications.Items.Add("Client data content length: " + request.ContentLength64);
+            }));
+            
+            Communications.Invoke(new Action(delegate ()
+            {
+                Communications.Items.Add("Start of client data:");
+            }));
+            
+            // Convert the data to a string and display it on the console.
+            string s = reader.ReadToEnd();
+            Communications.Invoke(new Action(delegate ()
+            {
+                Communications.Items.Add(s);
+            }));
+            
+            Communications.Invoke(new Action(delegate ()
+            {
+            Communications.Items.Add("End of client data.");
+            }));
+           
+            body.Close();
+            reader.Close();
+        }
+
+        private void ProcessClientRequests(object argument)         //obsługa połączenia
         {
             //Form1 frmTemp = (Form1)frm;
             TcpClient client = (TcpClient)argument;
@@ -32,16 +128,16 @@ namespace ServerApp
                 StreamReader reader = new StreamReader(client.GetStream());
                 StreamWriter writer = new StreamWriter(client.GetStream());
                 string s = String.Empty;
+                int j = 1;
                 while (!(s = reader.ReadLine()).Equals("Exit") || (s == null))
                 {
                     Communications.Invoke(new Action(delegate ()
                     {
-                        Communications.Items.Add("From client -> " + s);
+                        Communications.Items.Add("From client_"+j+" -> " + s);
                     }));
-                    //Communications.Items.Add("From client -> " + s);
-                    //Console.WriteLine("From client -> " + s);
                     writer.WriteLine("From server -> " + s);
                     writer.Flush();
+                    j++;
                 }
                 reader.Close();
                 writer.Close();
@@ -49,9 +145,7 @@ namespace ServerApp
                 Communications.Invoke(new Action(delegate ()
                 {
                     Communications.Items.Add("Closing client connection!");
-                }));
-                //Communications.Items.Add("Closing client connection!");
-                //Console.WriteLine("Closing client connection!");
+                }));               
             }
             catch (IOException)
             {
@@ -59,7 +153,6 @@ namespace ServerApp
                 //{
                 //    Communications.Items.Add("Problem with client communication. Exiting thread.");
                 //}));
-                //Communications.Items.Add("Problem with client communication. Exiting thread.");
                 Console.WriteLine("Problem with client communication. Exiting thread.");
             }
             finally
@@ -71,44 +164,50 @@ namespace ServerApp
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            // Check if the backgroundWorker is already busy running the asynchronous operation
+        private void button1_Click(object sender, EventArgs e)      //rozpoczęcie nasłuchiwania 
+        {            
             if (!backgroundWorker1.IsBusy)
-            {
-                // This method will start the execution asynchronously in the background
+            {                
                 backgroundWorker1.RunWorkerAsync();
-            }
+                            }
         }
 
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        private void button2_Click(object sender, EventArgs e)      //zakończenie pracy serwera
+        {
+            MessageBox.Show("Server has stopped waiting for incoming connections!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.Close();
+            conn.Close();
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)     //obsługa w innym wątku 
         {
             TcpListener listener = null;
             try
             {
-                listener = new TcpListener(IPAddress.Parse("127.0.0.1"), 8080);
+                listener = new TcpListener(IPAddress.Parse("10.1.1.15"), int.Parse(textBox1.Text));
                 listener.Start();
                 Communications.Invoke(new Action(delegate ()
                 {
                     Communications.Items.Add("MultiThreadedEchoServer started...");
                 }));
-                //Communications.Items.Add("MultiThreadedEchoServer started...");
+                int i = 1;
                 while (true)
                 {
-                    Communications.Invoke(new Action(delegate ()
-                    {
-                        Communications.Items.Add("Waiting for incoming client connections...");
-                    }));
-                    //Communications.Items.Add("Waiting for incoming client connections...");
-                    TcpClient client = listener.AcceptTcpClient();
-                    Communications.Invoke(new Action(delegate ()
-                    {
-                        Communications.Items.Add("Accepted new client connection...");
-                    }));
-                    //Communications.Items.Add("Accepted new client connection...");
-                    Thread t = new Thread(ProcessClientRequests);
-                    t.Start(client);
+                        Communications.Invoke(new Action(delegate ()
+                        {
+                            Communications.Items.Add("Waiting for incoming client connections...");
+                        }));
 
+                        TcpClient client = listener.AcceptTcpClient();
+                        Communications.Invoke(new Action(delegate ()
+                        {
+                            Communications.Items.Add("Accepted client_" + i + " connection...");
+                        }));
+
+                        Thread t = new Thread(ProcessClientRequests);
+                        t.Start(client);
+                        HttpListenerr("http://localhost:30000/");
+                    i++;
                 }
 
             }
@@ -118,7 +217,6 @@ namespace ServerApp
                 {
                     Communications.Items.Add("Problem with client communication.");
                 }));
-                //Communications.Items.Add("Problem with client communication.");
             }
             finally
             {
@@ -127,53 +225,73 @@ namespace ServerApp
                     listener.Stop();
                 }
             }
+            
         }
 
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-
+            
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Cancelled)
             {
-                Communications.Items.Add("Processing cancelled");
+                MessageBox.Show("Processing cancelled"); // Communications.Items.Add("Processing cancelled");
             }
             else if (e.Error != null)
             {
-                Communications.Items.Add(e.Error.Message);
+                MessageBox.Show(e.Error.Message); //Communications.Items.Add(e.Error.Message);
             }
             else
             {
-                Communications.Items.Add(e.Result.ToString());
+                MessageBox.Show(e.Result.ToString()); //Communications.Items.Add(e.Result.ToString());
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            using (SqlConnection conn = new SqlConnection())
-            {
-                conn.ConnectionString = "Server=.\\SQLExpress;Database=BazaZST;Integrated Security=true";
-                conn.Open();
-                SqlCommand cmd = new SqlCommand("SELECT id_zdarzenia, typ, czas FROM [dbo].[Table_1]", conn);
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {   
-                    Communications.Invoke(new Action(delegate ()
-                    {
-                        Communications.Items.Add("{0} {1} {2}", reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2));
-                    }));
-                    //Console.WriteLine("{0} {1} {2}", reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2));
-                }
-                reader.Close();
-                conn.Close();
 
-                if (Debugger.IsAttached)
-                {
-                    Console.ReadLine();
-                }
+        private void button3_Click(object sender, EventArgs e)      //ładowanie widoku tabeli 
+        {
+            conn.Open();
+            SqlDataAdapter sda = new SqlDataAdapter("select * from " +textBox2.Text, conn);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            dataGridView1.DataSource = dt;
+            sda.Update(dt);
+            conn.Close();
+        }
+
+        private void button5_Click(object sender, EventArgs e)      //filtrowanie
+        {
+            try
+            {
+                conn.Open();
+                SqlDataAdapter sda = new SqlDataAdapter("select * from " + textBox2.Text + " where " + textBox3.Text + " = " + "'"+textBox4.Text+"'", conn);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                dataGridView1.DataSource = dt;
+                conn.Close();
             }
+
+            catch (IOException)
+            {
+                MessageBox.Show("Type values to filter!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            SqlCommand cmd = new SqlCommand("delete " + textBox2.Text + " where " + textBox3.Text + " = " + "'"+textBox4.Text+"'", conn);
+            conn.Open();
+            cmd.Parameters.AddWithValue(textBox3.Text, textBox4.Text);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+            MessageBox.Show("Record Deleted Successfully!");
         }
     }
 }

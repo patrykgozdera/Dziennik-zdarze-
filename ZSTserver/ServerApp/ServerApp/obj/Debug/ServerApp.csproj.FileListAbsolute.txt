@@ -8,3 +8,13 @@ C:\Users\Patryk\Documents\ZSTserver\ServerApp\ServerApp\obj\Debug\ServerApp.cspr
 C:\Users\Patryk\Documents\ZSTserver\ServerApp\ServerApp\obj\Debug\ServerApp.csproj.CoreCompileInputs.cache
 C:\Users\Patryk\Documents\ZSTserver\ServerApp\ServerApp\obj\Debug\ServerApp.exe
 C:\Users\Patryk\Documents\ZSTserver\ServerApp\ServerApp\obj\Debug\ServerApp.pdb
+C:\Users\Patryk-student ELKI\Documents\ZST\ZSTserver\ServerApp\ServerApp\bin\Debug\ServerApp.exe.config
+C:\Users\Patryk-student ELKI\Documents\ZST\ZSTserver\ServerApp\ServerApp\bin\Debug\ServerApp.exe
+C:\Users\Patryk-student ELKI\Documents\ZST\ZSTserver\ServerApp\ServerApp\bin\Debug\ServerApp.pdb
+C:\Users\Patryk-student ELKI\Documents\ZST\ZSTserver\ServerApp\ServerApp\obj\Debug\ServerApp.csprojResolveAssemblyReference.cache
+C:\Users\Patryk-student ELKI\Documents\ZST\ZSTserver\ServerApp\ServerApp\obj\Debug\ServerApp.Properties.Resources.resources
+C:\Users\Patryk-student ELKI\Documents\ZST\ZSTserver\ServerApp\ServerApp\obj\Debug\ServerApp.csproj.GenerateResource.Cache
+C:\Users\Patryk-student ELKI\Documents\ZST\ZSTserver\ServerApp\ServerApp\obj\Debug\ServerApp.csproj.CoreCompileInputs.cache
+C:\Users\Patryk-student ELKI\Documents\ZST\ZSTserver\ServerApp\ServerApp\obj\Debug\ServerApp.exe
+C:\Users\Patryk-student ELKI\Documents\ZST\ZSTserver\ServerApp\ServerApp\obj\Debug\ServerApp.pdb
+C:\Users\Patryk-student ELKI\Documents\ZST\ZSTserver\ServerApp\ServerApp\obj\Debug\ServerApp.Server.resources
